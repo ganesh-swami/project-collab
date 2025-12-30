@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter, useParams } from "next/navigation";
 import { login } from "@/store/authSlice";
+import { addMemberByEmailToProject } from "@/store/projectsSlice";
+import { addMemberByEmail } from "@/store/membersSlice";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Settings, Eye, Users, Plus, Home, Share2 } from "lucide-react";
 import StandardFrame from "@/components/StandardFrame";
@@ -92,7 +94,30 @@ export default function ProjectDetailsPage() {
   };
 
   const handleSendInvitations = () => {
-    console.log("Sending invitations:", emails);
+    // Process each email and add members
+    emails.forEach((item) => {
+      if (item.email.trim()) {
+        const memberId = `user_${item.email.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
+
+        // Add member to members slice
+        dispatch(
+          addMemberByEmail({
+            email: item.email,
+            role: item.role === "Admin" ? "admin" : "participant",
+          })
+        );
+
+        // Add member to project
+        dispatch(
+          addMemberByEmailToProject({
+            projectId,
+            email: item.email,
+            memberId,
+          })
+        );
+      }
+    });
+
     setShowAddPeople(false);
     setEmails([{ email: "", role: "Participant" }]);
   };
