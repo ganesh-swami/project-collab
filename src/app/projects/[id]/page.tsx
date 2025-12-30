@@ -207,64 +207,64 @@ export default function ProjectDetailsPage() {
           <div className="overflow-x-auto pb-4">
             <div className="flex gap-6 min-w-max">
               {/* Standard Frame */}
-              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e]">
-                <div className="bg-[#e83e3e] px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-white font-semibold">
+              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e] flex flex-col">
+                <div className="bg-[#e83e3e] px-6 py-4 flex items-center justify-between shrink-0">
+                  <div className="flex items-center gap-2 text-white font-semibold text-lg">
                     <span>📋</span>
                     <span>Standard Frame</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <button className="p-1 hover:bg-[#d92e2e] rounded transition">
-                      <Settings className="h-4 w-4 text-white" />
+                      <Settings className="h-5 w-5 text-white" />
                     </button>
-                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-lg leading-none">
+                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-xl leading-none text-white">
                       ×
                     </button>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-6 flex-1 overflow-y-auto">
                   <StandardFrame projectId={projectId} />
                 </div>
               </div>
 
               {/* Members List Frame */}
-              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e]">
-                <div className="bg-[#e83e3e] px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-white font-semibold">
+              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e] flex flex-col">
+                <div className="bg-[#e83e3e] px-6 py-4 flex items-center justify-between shrink-0">
+                  <div className="flex items-center gap-2 text-white font-semibold text-lg">
                     <span>👥</span>
                     <span>Members List</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <button className="p-1 hover:bg-[#d92e2e] rounded transition">
-                      <Settings className="h-4 w-4 text-white" />
+                      <Settings className="h-5 w-5 text-white" />
                     </button>
-                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-lg leading-none">
+                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-xl leading-none text-white">
                       ×
                     </button>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-6 flex-1 overflow-y-auto">
                   <MembersList projectId={projectId} onInviteClick={() => setShowAddPeople(true)} />
                 </div>
               </div>
 
               {/* Discussion Board Frame */}
-              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e]">
-                <div className="bg-[#e83e3e] px-4 py-3 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-white font-semibold">
+              <div className="w-96 shrink-0 bg-white rounded-xl overflow-hidden shadow-md border border-[#e83e3e] flex flex-col">
+                <div className="bg-[#e83e3e] px-6 py-4 flex items-center justify-between shrink-0">
+                  <div className="flex items-center gap-2 text-white font-semibold text-lg">
                     <span>💬</span>
                     <span>Discussion Board</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <button className="p-1 hover:bg-[#d92e2e] rounded transition">
-                      <Settings className="h-4 w-4 text-white" />
+                      <Settings className="h-5 w-5 text-white" />
                     </button>
-                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-lg leading-none">
+                    <button className="p-1 hover:bg-[#d92e2e] rounded transition text-xl leading-none text-white">
                       ×
                     </button>
                   </div>
                 </div>
-                <div className="p-4">
+                <div className="p-6 flex-1 overflow-y-auto">
                   <DiscussionBoard projectId={projectId} />
                 </div>
               </div>
