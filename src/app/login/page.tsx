@@ -34,6 +34,10 @@ export default function LoginPage() {
         name: account.email.split("@")[0],
         role: account.role,
       };
+      
+      // Save user to cookies
+      document.cookie = `user=${JSON.stringify(user)}; path=/; max-age=${7 * 24 * 60 * 60}`;
+      
       dispatch(login(user));
       router.push("/dashboard");
     } else {

@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { toggleCreateModal, setCurrentProject } from "@/store/projectsSlice";
-import { logout } from "@/store/authSlice";
+import { logout, login } from "@/store/authSlice";
 import { Button } from "@/components/ui/button";
 import { Plus, LogOut } from "lucide-react";
 import CreateProjectModal from "@/components/CreateProjectModal";
@@ -15,10 +16,25 @@ export default function DashboardPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const projects = useSelector((state: RootState) => state.projects.projects);
 
-  if (!user) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    // Check if user is logged in via Redux
+    if (!user) {
+      // Try to restore from cookies
+      const cookies = document.cookie.split("; ");
+      const userCookie = cookies.find((cookie) => cookie.startsWith("user="));
+      
+      if (userCookie) {
+        try {
+          const userData = JSON.parse(userCookie.substring(5));
+          dispatch(login(userData));
+        } catch {
+          router.push("/login");
+        }
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [user, router, dispatch]);
 
   const handleCreateProject = () => {
     dispatch(toggleCreateModal(true));
@@ -33,6 +49,9 @@ export default function DashboardPage() {
   };
 
   const handleLogout = () => {
+    // Clear cookie
+    document.cookie = "user=; path=/; max-age=0";
+    
     dispatch(logout());
     router.push("/login");
   };
@@ -48,7 +67,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">Radiocarbon Team Collaboration</h1>
-              <p className="text-sm text-gray-600">Welcome, {user.name} ({user.role})</p>
+              {user && <p className="text-sm text-gray-600">Welcome, {user.name} ({user.role})</p>}
             </div>
           </div>
           <Button
