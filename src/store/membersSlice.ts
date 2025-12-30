@@ -53,6 +53,24 @@ const membersSlice = createSlice({
     addMember: (state, action: PayloadAction<TeamMember>) => {
       state.members.push(action.payload);
     },
+    addMemberByEmail: (
+      state,
+      action: PayloadAction<{ email: string; role: "admin" | "participant" }>
+    ) => {
+      // Check if member already exists
+      const existingMember = state.members.find((m) => m.email === action.payload.email);
+      if (!existingMember) {
+        const memberId = `user_${action.payload.email.toLowerCase().replace(/[^a-z0-9]/g, "_")}`;
+        const newMember: TeamMember = {
+          id: memberId,
+          name: action.payload.email.split("@")[0],
+          email: action.payload.email,
+          role: action.payload.role === "admin" ? "admin" : "participant",
+          status: "offline",
+        };
+        state.members.push(newMember);
+      }
+    },
     updateMemberStatus: (
       state,
       action: PayloadAction<{ memberId: string; status: "online" | "offline" }>
@@ -65,5 +83,5 @@ const membersSlice = createSlice({
   },
 });
 
-export const { addMember, updateMemberStatus } = membersSlice.actions;
+export const { addMember, addMemberByEmail, updateMemberStatus } = membersSlice.actions;
 export default membersSlice.reducer;
