@@ -86,6 +86,20 @@ const projectsSlice = createSlice({
         }
       }
     },
+    addMemberByEmailToProject: (
+      state,
+      action: PayloadAction<{ projectId: string; email: string; memberId: string }>
+    ) => {
+      const project = state.projects.find((p) => p.id === action.payload.projectId);
+      if (project && !project.members.includes(action.payload.memberId)) {
+        project.members.push(action.payload.memberId);
+      }
+      if (state.currentProject?.id === action.payload.projectId) {
+        if (!state.currentProject.members.includes(action.payload.memberId)) {
+          state.currentProject.members.push(action.payload.memberId);
+        }
+      }
+    },
     removeMemberFromProject: (
       state,
       action: PayloadAction<{ projectId: string; memberId: string }>
@@ -142,6 +156,7 @@ export const {
   updateProject,
   deleteProject,
   addMemberToProject,
+  addMemberByEmailToProject,
   removeMemberFromProject,
   updateFrameInProject,
   addMessageToProject,
